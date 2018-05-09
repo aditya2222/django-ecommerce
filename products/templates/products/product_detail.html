@@ -6,7 +6,9 @@
 </head>
 <body>
 
-{{ object.title }}
-
+{{ object.title }}<br>
+{{ object.description }} <br>
+{{ object.image.url }}
+<img src="{{ object.image.url }}" class="img-fluid" alt="">
 </body>
 </html>
