@@ -27,6 +27,9 @@ class Product(models.Model):
     image = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
     featured = models.BooleanField(default=False)
 
+    def get_absolute_url(self):
+        return '/products/{slug}'.format(slug=self.slug)
+
     def __str__(self):
         return self.title
 
