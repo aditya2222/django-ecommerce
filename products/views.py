@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from .models import Product
-from django.views.generic import ListView, DetailView,TemplateView
-
+from django.views.generic import ListView, DetailView,TemplateView,CreateView
+from .forms import UserCreationForm
+from django.urls import reverse_lazy
 
 # Create your views here.
 
@@ -19,3 +20,7 @@ class ProductDetailView(DetailView):
 
 
 
+class CreateUserView(CreateView):
+	form_class  = UserCreationForm
+	success_url = reverse_lazy('login')
+	template_name = 'registration/signup.html'
