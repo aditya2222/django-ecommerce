@@ -17,13 +17,14 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
-from products.views import HomePageView
+from products.views import HomePageView,BootstrapView
 from django.contrib.auth.views import LoginView,LogoutView
 urlpatterns = [
     path('',HomePageView.as_view(),name='home'),
     path('products/',include('products.urls',namespace='products')),
     path('login/', LoginView.as_view(),name='login'),
     path('logout/', LogoutView.as_view(),name='logout'),
+    path('bootstrap/', BootstrapView.as_view(),name='bootstrap'),
     path('admin/', admin.site.urls),
 ]
 
