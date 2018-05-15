@@ -17,15 +17,28 @@
 				</div>
 			</div>
 		</div>
-		<div class="row no-gutters">
-			<div class="col-4">
+		<div class="row">
+			<!-- breakpoints -->
+			<div class="col-12 col-sm-12 col-md-6 col-lg-4 ml-auto">
+				<input type="text" class="form-control" placeholder="Search" name="">
+			</div>
+		</div>
+		<!-- ordering and offset -->
+		<div class="row">
+			<div class="col-12 ml-auto mr-auto col-lg-2 order-12">
 				<div class="alert alert-primary" role="alert">
-					Sidebar
+					Bottom Content
 				</div>
 			</div>
-			<div class="col-8">
+			<!-- after col-8 and col-2 only space for col-2 is left so it shifts the col-12 down on to the next line -->
+			<div class="col-12 col-lg-8 ml-auto mr-auto order-6 ">
 				<div class="alert alert-primary" role="alert" style="min-height: 500px">
-					Content
+					Middle
+				</div>
+			</div>
+			<div class="col-12 ml-auto mr-auto col-lg-2 order-3">
+				<div class="alert alert-primary" role="alert">
+					Top Content Item
 				</div>
 			</div>
 		</div>
