@@ -26,5 +26,6 @@ class CreateUserView(CreateView):
     success_url = reverse_lazy('login')
     template_name = 'registration/signup.html'
 
+
 class BootstrapView(TemplateView):
-	template_name = 'bootstrap/example.html'
+    template_name = 'bootstrap/example.html'
