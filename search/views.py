@@ -17,8 +17,10 @@ class SearchProductView(ListView):
             return Product.objects.filter(title__icontains=query)
         else:
             return Product.objects.none()
-        """ 
-        __icontains = field contains this
-        __iexact = field is exactly this
-        both are not case sensitive
-        """
+
+
+""" 
+    __icontains = field contains this
+    __iexact = field is exactly this
+    both are not case sensitive
+"""
