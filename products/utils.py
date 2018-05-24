@@ -23,3 +23,5 @@ def unique_slug_generator(instance,new_slug=None):
 	return slug
 
 
+
+

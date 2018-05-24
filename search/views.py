@@ -13,7 +13,7 @@ class SearchProductView(ListView):
     def get_queryset(self):
         # GET returns a key value pai and get lets us fetch  the value using the key returned by GET
         # shirt after the q acts as the alternative parameter in case the q does not exist or is none
-        query = self.request.GET.get('q',None)
+        query = self.request.GET.get('q', None)
         if query is not None:
             lookups = Q(title__icontains=query) | Q(description__icontains=query)
             return Product.objects.filter(lookups).distinct()
