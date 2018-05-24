@@ -4,7 +4,7 @@ import os
 from django.db.models.signals import pre_save
 from .utils import unique_slug_generator
 from django.urls import reverse
-from products.models import Product
+
 
 
 # Create your models here.
