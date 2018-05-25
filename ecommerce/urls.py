@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from products.views import HomePageView, BootstrapView
+from carts.views import CartsView
 from django.contrib.auth.views import LoginView, LogoutView
 urlpatterns = [
     path('', HomePageView.as_view(), name='home'),
@@ -26,6 +27,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('bootstrap/', BootstrapView.as_view(), name='bootstrap'),
     path('search/', include('search.urls', namespace='search')),
+    path('cart/', CartsView,name='cart'),
     path('admin/', admin.site.urls),
 ]
 
