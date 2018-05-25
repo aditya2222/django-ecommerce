@@ -7,6 +7,7 @@ from django.urls import reverse
 
 
 
+
 # Create your models here.
 
 def get_filename_ext(filepath):
@@ -44,3 +45,5 @@ def product_pre_save_receiver(sender, instance, *args, **kwargs):
 
 
 pre_save.connect(product_pre_save_receiver, sender=Product)
+
+
