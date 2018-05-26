@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from products.models import Product
+from django.db.models.signals import pre_save, m2m_changed
 
 User = settings.AUTH_USER_MODEL
 
@@ -14,7 +15,6 @@ class CartManager(models.Manager):
         qs = self.get_queryset().filter(id=cart_id)
         if qs.count() == 1:
             new_obj = False
-            print("cart ID exists")
             cart_obj = qs.first()
             if request.user.is_authenticated and cart_obj.user is None:
                 cart_obj.user = request.user
@@ -22,9 +22,9 @@ class CartManager(models.Manager):
 
         else:
             cart_obj = Cart.objects.new(user=request.user)
-            mew_obj = True
+            new_obj = True
             request.session['cart_id'] = cart_obj.id
-        return cart_obj
+        return cart_obj, new_obj
 
     def new(self, user=None):
         user_obj = None
@@ -45,3 +45,17 @@ class Cart(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+def pre_save_cart_receiver(sender, instance, action, *args, **kwargs):
+    if action == 'post_add' or action == 'post_remove' or action == 'post_clear':
+        print(instance.total)
+        products = instance.products.all()
+        total = 0
+        for x in products:
+            total += x.price
+        instance.total = total
+        instance.save()
+
+
+m2m_changed.connect(pre_save_cart_receiver, sender=Cart.products.through)
