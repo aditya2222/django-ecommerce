@@ -1,4 +1,4 @@
-app_name = 'carts'
+app_name = 'cart'
 from django.urls import path, include
 from .views import cart_home,cart_update
 urlpatterns = [
