@@ -3,10 +3,10 @@ app_name = 'accounts'
 
 
 from django.urls import path,include
-from .views import CreateUserView
+from .views import signup
 
 
 
 urlpatterns = [
-    path('register/', CreateUserView.as_view(), name='register'),
+    path('register/', signup, name='register'),
 ]

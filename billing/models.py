@@ -8,7 +8,7 @@ User = get_user_model()
 # Create your models here.
 
 class BillingProfile(models.Model):
-	user = models.ForeignKey(User,null=True,blank=True,on_delete=models.CASCADE)
+	user = models.OneToOneField(User,null=True,blank=True,on_delete=models.CASCADE)
 	email = models.EmailField()
 	active = models.BooleanField(default=True)
 	# auto_now updates time everytime object is saved
@@ -22,10 +22,17 @@ class BillingProfile(models.Model):
 		return self.email
 
 
-def user_created_receiver(sender, instance, created, *args, **kwargs):
-	if created:
-		BillingProfile.objects.get_or_create(user=instance)
 
+# def billing_profile_created_receiver(sender, instance, created, *args, **kwrags):
+# 	if created:
+# 		print('ACTUAL API REQUEST Send to Stripe/Braintree')
+# 		instance.customer_id = newID
+# 		instance.save()
+
+
+def user_created_receiver(sender, instance, created, *args, **kwargs):
+	if created and instance.email:
+		BillingProfile.objects.get_or_create(user=instance,	email=instance.email)
 
 
 post_save.connect(user_created_receiver, sender=User)
