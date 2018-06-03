@@ -28,6 +28,7 @@ urlpatterns = [
     path('bootstrap/', BootstrapView.as_view(), name='bootstrap'),
     path('search/', include('search.urls', namespace='search')),
     path('cart/', include('carts.urls', namespace='cart')),
+    path('accounts/', include('accounts.urls', namespace='accounts')),
     path('admin/', admin.site.urls),
 ]
 

@@ -22,11 +22,6 @@ class ProductDetailView(DetailView):
     model = Product
 
 
-class CreateUserView(CreateView):
-    form_class = UserCreationForm
-    success_url = reverse_lazy('login')
-    template_name = 'registration/signup.html'
-
 
 class BootstrapView(TemplateView):
     template_name = 'bootstrap/example.html'
