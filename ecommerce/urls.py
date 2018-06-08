@@ -18,12 +18,13 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from products.views import HomePageView, BootstrapView
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LogoutView
+from accounts.views import guest_register_view
 
 urlpatterns = [
     path('', HomePageView.as_view(), name='home'),
+    path('guest/register', guest_register_view, name='guest_register'),
     path('products/', include('products.urls', namespace='products')),
-    path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('bootstrap/', BootstrapView.as_view(), name='bootstrap'),
     path('search/', include('search.urls', namespace='search')),
