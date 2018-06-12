@@ -7,7 +7,7 @@ User = get_user_model()
 
 # Create your models here.
 
-
+# Billing Profile manager
 class BillingProfileManager(models.Manager):
 
     def new_or_get(self, request):
