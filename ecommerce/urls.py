@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 from products.views import HomePageView, BootstrapView
 from django.contrib.auth.views import LogoutView
 from accounts.views import guest_register_view
+from addresses.views import checkout_address_create_view
 
 urlpatterns = [
     path('', HomePageView.as_view(), name='home'),
@@ -30,6 +31,7 @@ urlpatterns = [
     path('search/', include('search.urls', namespace='search')),
     path('cart/', include('carts.urls', namespace='cart')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
+    path('checkout/address/create/', checkout_address_create_view, name='checkout_address_create'),
     path('admin/', admin.site.urls),
 ]
 

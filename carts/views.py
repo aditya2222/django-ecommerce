@@ -52,6 +52,5 @@ def checkout_home(request):
         "login_form": login_form,
         "guest_form": guest_form,
         "address_form":address_form,
-        "billing_address_form":billing_address_form,
     }
     return render(request, 'carts/checkout.html', context)
