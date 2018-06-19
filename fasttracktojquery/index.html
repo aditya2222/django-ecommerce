@@ -35,19 +35,43 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
         integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
         crossorigin="anonymous"></script>
-<script>
-    // $(selector)
-    $(document).ready(function () {
-        setTimeout(function () {
-            //$('body').css('background-color','red')
-            $('#paragraph').css('height','120px').css('width','120px').css('overflow','auto')
-        }, 2000)
 
+<script>
+
+    $(document).ready(function () {
+        var num = 124;
+        var someString = "some string"
+        var someArray = [num, 123, 1233, 'and so on']
+        var isFalse = false
+        $.each(someArray, function (index, obj) {
+            if (obj % 2 == 0) {
+                console.log(obj, "is even")
+            }
+            else {
+                console.log(obj, "is odd")
+            }
+        })
     })
 
 </script>
 
 
+<!-- <script>
+                // $(selector)
+                $(document).ready(function () {
+                                console.log($('#paragraph').css('height'))
+                                console.log($('#paragraph').height())
+
+
+                                setTimeout(function () {
+                                                //$('body').css('background-color','red')
+                                                $('#paragraph').css('height','120px').css('width','120px').css('overflow','auto')
+                                }, 2000)
+
+                })
+
+</script>
+-->
 </body>
 
 </html>
