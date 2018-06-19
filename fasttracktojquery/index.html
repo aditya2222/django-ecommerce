@@ -12,11 +12,18 @@
     <title>Hello, world!</title>
 </head>
 <body>
+	<style>
+.description{
+height:300px;
+width:25px;
+}
+	</style>
 <h1 class="header">Hello, world!</h1>
 <h1>Hello, world!</h1>
 <h1 id="header-3">Hello, world!</h1>
 <h1>Hello, world!</h1>
-<p id="paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+<p class="description">Another Paragraph</p>
+<p id="paragraph" class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
     dignissim luctus massa, eget mollis mi fringilla id.
     Proin id augue sed arcu viverra fermentum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
     cubilia Curae; Vivamus nec pharetra mi. Nam eget libero scelerisque, ullamcorper nisl sed, imperdiet augue. Orci
@@ -36,7 +43,36 @@
         integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
         crossorigin="anonymous"></script>
 
+
+
 <script>
+
+	$(document).ready(function(){
+	
+	var $descriptionItems = $('.description')
+	
+		$.each($descriptionItems,function(index, obj){
+		var item = $(this)
+			console.log(index, item.height())
+	console.log(index, item.height())
+		var actualHeight = item[0].scrollHeight
+		var shouldbeHeight = item.height()
+		console.log(actualHeight, shouldbeHeight)
+		if(actualHeight>shouldbeHeight){
+		item.css("overflow-y","scroll")
+
+		}
+		
+		})
+			
+	
+	})
+
+
+</script>
+
+
+<!-- <script>
 
     $(document).ready(function () {
         var num = 124;
@@ -54,7 +90,7 @@
     })
 
 </script>
-
+-->
 
 <!-- <script>
                 // $(selector)
