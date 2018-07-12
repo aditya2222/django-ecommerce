@@ -12,27 +12,29 @@
     <title>Hello, world!</title>
 </head>
 <body>
-	<style>
-    .description{
-        height:300px;
-        width:25px;
-    }
-    </style>
-    <h1 class="header">Hello, world!</h1>
-    <h1>Hello, world!</h1>
-    <h1 id="header-3" class='header3'>Header 3</h1>
-    <h1>Hello, world!</h1>
-    <p class='description'><a href='#'>Some Link</a></p>
-    <p class="description">Another Paragraph</p>
-    <p id="paragraph" class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-        dignissim luctus massa, eget mollis mi fringilla id.
-        Proin id augue sed arcu viverra fermentum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
-        cubilia Curae; Vivamus nec pharetra mi. Nam eget libero scelerisque, ullamcorper nisl sed, imperdiet augue. Orci
-        varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras venenatis velit sapien, in
-        vulputate dui ullamcorper in. Maecenas viverra lobortis ipsum, pretium accumsan tellus dapibus vel. Aliquam erat
-        volutpat. Ut suscipit, turpis et gravida pretium, quam tellus lobortis purus, nec consequat erat nibh congue lacus.
-        Etiam convallis et est sit amet gravida.
-    </p>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3>Form</h3>
+            <form class="new-content-form" method="POST" action="/some/url/link">
+            <textarea name="content" class="form-control"></textarea>
+            <input type="submit" name="" value="Save">
+            </form>
+
+        </div>
+        
+    </div>
+    
+</div>
+
+
+
+
+
+
+
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -45,62 +47,28 @@
     crossorigin="anonymous"></script>
 
 
-<!--
-<script>
 
-//	$(document).ready(function(){
-//	
-//	var $descriptionItems = $('.description')
-//	
-//		$.each($descriptionItems,function(index, obj){
-//		var item = $(this)
-//			console.log(index, item.height())
-//	console.log(index, item.height())
-//		var actualHeight = item[0].scrollHeight
-//		var shouldbeHeight = item.height()
-//		console.log(actualHeight, shouldbeHeight)
-//		if(actualHeight>shouldbeHeight){
-//		item.css("overflow-y","scroll")
-//
-//		}
-//		
-//		})
-//			
-//	
-//	})
-//
-//
-</script>
--->
+<script type="text/javascript">
+    
+$(document).ready(function(){
 
-<script>
+var contentForm = $(".new-content-form")
 
-	$(document).ready(function(){
-	
-	var header3 = $('#header-3')
-	
-	header3.click(function(event){
-	
-		var $this = $(this)
-		console.log($this[0].scrollHeight)
-		console.log(event)
-		window.location.href = 'https://www.google.com'
-		
-	
-	})
-		var descriptionLinks = $('.description a')
-		descriptionLinks.click(function(event){
-			console.log(event)
-	
-		event.preventDefault()
-		})
-		
-	
-	})
+contentForm.submit(function(event){
 
-	
+event.preventDefault()
+
+console.log(contentForm.serialize())
+var $this = $(this)
+var textAreaContent = $this.find('textarea')
+console.log(textAreaContent.val())
+
+})
+
+})
+
 </script>
 
-</body>
+    </body>
 
-</html>
+    </html>
