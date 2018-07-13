@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .models import Cart
 from products.models import Product
@@ -7,6 +8,8 @@ from accounts.forms import GuestForm, LoginForm
 from accounts.models import GuestEmail
 from addresses.forms import AddressForm
 from addresses.models import Address
+
+
 # Create your views here.
 
 
@@ -26,10 +29,21 @@ def cart_update(request):
         cart_obj, new_obj = Cart.objects.new_or_get(request)
         if product_obj in cart_obj.products.all():
             cart_obj.products.remove(product_obj)
+            added = False
         else:
             cart_obj.products.add(product_obj)
+            added = True
         request.session['cart_items'] = cart_obj.products.count()
-    # return redirect(product_obj.get_absolute_url())
+        # return redirect(product_obj.get_absolute_url())
+
+        if request.is_ajax():  # Asynchronus Javascript and XML / JSON response will be sent back
+            print("Ajax Request")
+            json_data = {
+                "added": added,
+                "removed": not added,
+
+            }
+            return JsonResponse(json_data)
     return redirect("cart:home")
 
 
@@ -41,18 +55,18 @@ def checkout_home(request):
     login_form = LoginForm()
     guest_form = GuestForm()
     address_form = AddressForm()
-    billing_address_id = request.session.get("billing_address_id",None)
-    shipping_address_id = request.session.get("shipping_address_id",None)
+    billing_address_id = request.session.get("billing_address_id", None)
+    shipping_address_id = request.session.get("shipping_address_id", None)
     billing_profile, billing_profile_created = BillingProfile.objects.new_or_get(request)
     address_qs = None
     if billing_profile is not None:
         if request.user.is_authenticated:
             address_qs = Address.objects.filter(billing_profile=billing_profile)
         order_obj, order_obj_created = Order.objects.new_or_get(billing_profile, cart_obj)
-        if shipping_address_id :
+        if shipping_address_id:
             order_obj.shipping_address = Address.objects.get(id=shipping_address_id)
             del request.session["shipping_address_id"]
-        if billing_address_id :
+        if billing_address_id:
             order_obj.billing_address = Address.objects.get(id=billing_address_id)
             del request.session["billing_address_id"]
         if billing_address_id or shipping_address_id:
@@ -70,11 +84,11 @@ def checkout_home(request):
         "billing_profile": billing_profile,
         "login_form": login_form,
         "guest_form": guest_form,
-        "address_form":address_form,
-        "address_qs":address_qs,
+        "address_form": address_form,
+        "address_qs": address_qs,
     }
     return render(request, 'carts/checkout.html', context)
 
 
 def checkout_done_view(request):
-    return render(request, 'carts/checkout-done.html',{})
+    return render(request, 'carts/checkout-done.html', {})

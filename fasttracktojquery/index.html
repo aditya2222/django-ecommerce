@@ -26,12 +26,11 @@
         
     </div>
     
+
+    <div class="formDataSubmitted">
+        
+    </div>
 </div>
-
-
-
-
-
 
 
 
@@ -61,7 +60,28 @@ event.preventDefault()
 console.log(contentForm.serialize())
 var $this = $(this)
 var textAreaContent = $this.find('textarea')
-console.log(textAreaContent.val())
+// console.log(textAreaContent.attr("name"))
+// console.log(textAreaContent.val())
+var formMethod = $this.attr("method")
+var formAction = $this.attr("action")
+	var data = {
+	
+		"content": textAreaContent.val(),
+        "method": formMethod,
+        "action": formAction
+	
+	}
+    $('.formDataSubmitted').text(data.content+data.method)
+
+    textAreaContent.val("")
+
+
+    // If we have a backend we could use ajax with jquery to send data to server
+    // $.ajax({
+    //     url:'some-url',
+    //     method:,
+    //     data:
+    // })
 
 })
 
