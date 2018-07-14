@@ -76,7 +76,9 @@
 					console.log("In currentPathnt cart")
 					var cartTable = $(".cart-table")
 					var cartBody = cartTable.find(".cart-body")
-					cartBody.html("<h1>Changed</h1>")
+					// cartBody.html("<h1>Changed</h1>")
+					var productRows = cartBody.find(".cart-products")
+					var currenUrl = window.location.href
 
 
 					var refreshCartUrl = '/api/cart/';
@@ -91,7 +93,14 @@
 						success: function(data){
 							console.log("success");
 							console.log(data);
-
+							if(data.products.length > 0){
+							productRows.html("<tr><td colspan=3>Coming Soon</td></tr>")
+								}else{
+									// Refreshing the page by setting the same url
+									window.location.href = currenUrl
+									cartBody.find(".cart-subtotal").text(data.subtotal)
+									cartBody.find(".cart-total").text(data.total)
+								}
 						},
 						error: function(errorData){
 							console.log("Error");

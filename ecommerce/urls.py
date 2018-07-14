@@ -21,12 +21,14 @@ from products.views import HomePageView, BootstrapView
 from django.contrib.auth.views import LogoutView
 from accounts.views import guest_register_view
 from addresses.views import checkout_address_create_view, checkout_address_reuse_view
+from carts.views import cart_detail_api_view
 
 urlpatterns = [
     path('', HomePageView.as_view(), name='home'),
     path('guest/register', guest_register_view, name='guest_register'),
     path('products/', include('products.urls', namespace='products')),
     path('logout/', LogoutView.as_view(), name='logout'),
+    path('api/cart/', cart_detail_api_view, name='api-cart'),
     path('bootstrap/', BootstrapView.as_view(), name='bootstrap'),
     path('search/', include('search.urls', namespace='search')),
     path('cart/', include('carts.urls', namespace='cart')),
