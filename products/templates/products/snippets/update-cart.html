@@ -1,4 +1,4 @@
-<form class="form-product-ajax" method="post" action="{% url 'cart:update' %}" class="form">
+<form class="form-product-ajax" method="post" action="{% url 'cart:update' %}" data-endpoint="{% url 'cart:update' %}" class="form"> <!--  form action would remain same but data endpoint might change -->
     {% csrf_token %}
     <input type="hidden" name="product_id" value="{{ product.id }}">
     {% if in_cart %}

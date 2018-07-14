@@ -39,10 +39,11 @@ def cart_update(request):
         if request.is_ajax():  # Asynchronus Javascript and XML / JSON response will be sent back
             print("Ajax Request")
             json_data = {
-                "added": added,
-                "removed": not added,
+                    "added": added,
+                    "removed": not added,
+                    "cartItemCount":cart_obj.products.count()
 
-            }
+                    }
             return JsonResponse(json_data)
     return redirect("cart:home")
 
@@ -80,13 +81,13 @@ def checkout_home(request):
             del request.session["cart_id"]
             return redirect("cart:success")
     context = {
-        "object": order_obj,
-        "billing_profile": billing_profile,
-        "login_form": login_form,
-        "guest_form": guest_form,
-        "address_form": address_form,
-        "address_qs": address_qs,
-    }
+            "object": order_obj,
+            "billing_profile": billing_profile,
+            "login_form": login_form,
+            "guest_form": guest_form,
+            "address_form": address_form,
+            "address_qs": address_qs,
+            }
     return render(request, 'carts/checkout.html', context)
 
 
