@@ -30,7 +30,7 @@
 				productForm.submit(function(event){
 					event.preventDefault();
 					//console.log('Form is not sending')
-					var thisForm = $(this) //referrring to only the current form	
+					var thisForm = $(this) //referrring to only the current form instance	
 					var actionEndpoint = thisForm.attr("data-endpoint");
 					var httpMethod = thisForm.attr("method");
 					var formData = thisForm.serialize();
@@ -42,10 +42,12 @@
 						data: formData,
 						success: function(data){
 							var submitSpan = thisForm.find(".submit-span")
+							console.log("data");
+							console.log(data);
 
 							if(data.added){
 
-								submitSpan.html("<button type='submit' class='btn btn-link'>Remove?</button>")
+								submitSpan.html("In Cart <button type='submit' class='btn btn-link'>Remove?</button>")
 
 							}
 							else{
@@ -91,15 +93,22 @@
 						method:refreshCartMethod,
 						data: data,
 						success: function(data){
-							console.log("success");
-							console.log(data);
+							// console.log("success");
+							// console.log(data);
+							var hiddenCartItemRemoveForm = $(".cart-item-remove-form")
 							if(data.products.length > 0){
 							productRows.html("")
-							var i=1;								
+							var i=data.products.length;								
 							$.each(data.products, function(index, value){
 								console.log(value)
-								cartBody.prepend("<tr><th scope=\"row\">"+i+"</th><td>"+value.name+"</td><td>"+value.price+"</td>"+"</td></tr>")
-								++i;
+								var newCartItemRemove = hiddenCartItemRemoveForm.clone();
+								newCartItemRemove.css("display","block");
+								// newCartItemRemove.removeClass("hidden-class")
+								newCartItemRemove.find('.cart-item-product-id').val(value.id)
+
+								cartBody.prepend("<tr><th scope=\"row\">"+i+"</th><td><a href='"+value.url+"'>"+value.name+"</a>"+
+									newCartItemRemove.html()+"</td><td>"+value.price+"</td>"+"</td></tr>")
+								--i;
 							})
 							
 							cartBody.find(".cart-subtotal").text(data.subtotal)
