@@ -16,18 +16,18 @@ def cart_detail_api_view(request):
     cart_obj, new_obj = Cart.objects.new_or_get(request)
     # This will be a list of items such as [<object>, <object>]
     products = [{
-    "id":x.id,
-    "url":x.get_absolute_url(),
-    "name":x.name,
-    "price":x.price,
+        "id": x.id,
+        "url": x.get_absolute_url(),
+        "name": x.name,
+        "price": x.price,
 
-    } 
-    for x in cart_obj.products.all()]
+    }
+        for x in cart_obj.products.all()]
     # The above is similar to this
     # products = []
     # for x in cart_obj.products.all():
     #     products.append("name":x.name,"price":x.price)
-    cart_data = {"products":products, "subtotal":cart_obj.subtotal, "total":cart_obj.total}
+    cart_data = {"products": products, "subtotal": cart_obj.subtotal, "total": cart_obj.total}
     return JsonResponse(cart_data)
 
 

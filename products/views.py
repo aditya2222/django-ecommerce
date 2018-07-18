@@ -22,8 +22,6 @@ class ProductDetailView(DetailView):
     model = Product
 
 
-
-
 class BootstrapView(TemplateView):
     template_name = 'bootstrap/example.html'
 
@@ -37,7 +35,6 @@ class ProdcutDetailSlugView(DetailView):
         cart_obj, new_obj = Cart.objects.new_or_get(self.request)
         context['cart'] = cart_obj
         return context
-
 
 # def get_context_data(self, **kwargs):
 #     context = super().get_context_data(**kwargs)
