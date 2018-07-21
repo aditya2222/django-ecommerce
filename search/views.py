@@ -11,7 +11,7 @@ class SearchProductView(ListView):
     template_name = 'search/view.html'
 
     def get_queryset(self):
-        # GET returns a key value pai and get lets us fetch  the value using the key returned by GET
+        # GET returns a key value pair and get lets us fetch  the value using the key returned by GET
         # shirt after the q acts as the alternative parameter in case the q does not exist or is none
         query = self.request.GET.get('q', None)
         if query is not None:
