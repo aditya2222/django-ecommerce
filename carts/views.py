@@ -9,7 +9,6 @@ from accounts.models import GuestEmail
 from addresses.forms import AddressForm
 from addresses.models import Address
 
-
 # Create your views here.
 
 def cart_detail_api_view(request):
@@ -27,7 +26,8 @@ def cart_detail_api_view(request):
     # products = []
     # for x in cart_obj.products.all():
     #     products.append("name":x.name,"price":x.price)
-    cart_data = {"products": products, "subtotal": cart_obj.subtotal, "total": cart_obj.total}
+    cart_data = {"products": products,
+                 "subtotal": cart_obj.subtotal, "total": cart_obj.total}
     return JsonResponse(cart_data)
 
 
@@ -62,7 +62,10 @@ def cart_update(request):
                 "cartItemCount": cart_obj.products.count()
 
             }
-            return JsonResponse(json_data)
+            # return JsonResponse(json_data)
+            # Django Rest Framework is better with regards to such calls
+            # status attribute for JSON respoonse is used to specify the error code and status
+            return JsonResponse(json_data, status=200)
     return redirect("cart:home")
 
 
