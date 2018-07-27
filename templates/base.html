@@ -42,10 +42,26 @@
         var contactFormMethod = contactForm.attr("method")
         var contactFormEndpoint = contactForm.attr("action")
 
+
+        function displaySubmitting(submitBtn, defaultText, doSubmit) {
+            if (doSubmit) {
+                submitBtn.addClass("disabled")
+                submitBtn.html("<i class='fa fa-spin fa-spinner'></i>Sending...")
+            }
+            else {
+                submitBtn.removeClass("disabled")
+                submitBtn.html(defaultText)
+            }
+
+        }
+
         contactForm.submit(function (event) {
             event.preventDefault()
+            var contactFormSubmitBtn = contactForm.find("[type='submit']")
+            var contactFormSubmitBtnTxt = contactFormSubmitBtn.text()
             var contactFormData = contactForm.serialize()
             var thisForm = $(this)
+            displaySubmitting(contactFormSubmitBtn, "", true)
             $.ajax({
                 method: contactFormMethod,
                 url: contactFormEndpoint,
@@ -54,17 +70,28 @@
                     contactForm[0].reset()
                     $.alert({
                         title: 'Success!',
-                        content: data.message   ,
+                        content: data.message,
                         theme: "modern"
                     })
+                    setTimeout(function () {
+                        displaySubmitting(contactFormSubmitBtn, contactFormSubmitBtnTxt, false)
+                    }, 500)
                 },
                 error: function (error) {
-                    console.log(error)
+                    console.log(error.responseJSON)
+                    var jsonData = error.responseJSON
+                    var msg = ""
+                    $.each(jsonData, function (key, value) {
+                        msg += key + ": " + value[0].message + "<br>"
+                    })
                     $.alert({
                         title: 'OOPS!',
-                        content: 'An error occurred!',
+                        content: msg,
                         theme: "modern"
                     })
+                    setTimeout(function () {
+                        displaySubmitting(contactFormSubmitBtn, contactFormSubmitBtnTxt, false)
+                    }, 500)
                 }
             })
         })

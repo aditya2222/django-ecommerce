@@ -31,3 +31,4 @@ class ContactForm(forms.Form):
         if not "gmail.com" in email:
             raise forms.ValidationError("Email should have gmail.com")
         return email
+
