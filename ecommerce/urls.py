@@ -22,10 +22,12 @@ from django.contrib.auth.views import LogoutView
 from accounts.views import guest_register_view
 from addresses.views import checkout_address_create_view, checkout_address_reuse_view
 from carts.views import cart_detail_api_view
+from .views import contact_page
 
 urlpatterns = [
     path('', HomePageView.as_view(), name='home'),
     path('guest/register', guest_register_view, name='guest_register'),
+    path('contact/', contact_page, name='contact'),
     path('products/', include('products.urls', namespace='products')),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('api/cart/', cart_detail_api_view, name='api-cart'),
