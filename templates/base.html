@@ -34,6 +34,11 @@
     {% block content %} {% endblock content %}
 
 </div>
+
+{#Django Secure AJAX#}
+<script src="{% static 'js/csrf.ajax.js' %}"></script>
+
+{#ecommerce custom js#}
 <script src="{% static 'js/ecommerce.js' %}"></script>
 
 </body>
