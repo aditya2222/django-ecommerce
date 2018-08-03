@@ -16,7 +16,7 @@ class UserManager(BaseUserManager):
         )
         user_obj.set_password(password)  # Change User Password
         user_obj.staff = is_staff
-        user_obj.is_admin = is_admin
+        user_obj.admin = is_admin
         user_obj.active = is_active
         user_obj.save(using=self._db)
         return user_obj
@@ -40,7 +40,7 @@ class UserManager(BaseUserManager):
 
 # Our Custom User Model
 class User(AbstractBaseUser):
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     # full_name = models.CharField(max_length=255, blank=True, null=True)
     active = models.BooleanField(default=True)  # can login
     staff = models.BooleanField(default=False)  # staff user but not superuser
@@ -61,6 +61,11 @@ class User(AbstractBaseUser):
     def get_short_name(self):
         return self.email
 
+    def has_perm(self, perm, obj=None):
+        return True
+    def has_module_perms(self, app_label):
+        return True
+
     @property
     def is_active(self):
         return self.active
@@ -72,7 +77,7 @@ class User(AbstractBaseUser):
     @property
     def is_admin(self):
         return self.admin
-
+        
 
 class GuestEmail(models.Model):
     email = models.EmailField()

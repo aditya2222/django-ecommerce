@@ -1,0 +1,41 @@
+[
+{
+    "model": "products.product",
+    "pk": 15,
+    "fields": {
+        "title": "firstProduct",
+        "slug": "firstproduct",
+        "description": "this is the first product",
+        "price": "20.00",
+        "image": "",
+        "featured": false,
+        "timestamp": "2018-05-26T09:33:23.574Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 16,
+    "fields": {
+        "title": "secondProduct",
+        "slug": "secondproduct",
+        "description": "this is the second product",
+        "price": "30.00",
+        "image": "",
+        "featured": false,
+        "timestamp": "2018-05-26T10:25:10.270Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 17,
+    "fields": {
+        "title": "newProduct",
+        "slug": "newproduct",
+        "description": "this is a brand new product",
+        "price": "10.00",
+        "image": "",
+        "featured": false,
+        "timestamp": "2018-05-26T15:57:13.211Z"
+    }
+}
+]
