@@ -8,6 +8,8 @@ User = get_user_model()
 # Create your models here.
 
 # Billing Profile manager
+
+
 class BillingProfileManager(models.Manager):
 
     def new_or_get(self, request):
@@ -25,7 +27,7 @@ class BillingProfileManager(models.Manager):
             obj, created = self.model.objects.get_or_create(
                 email=guest_email_obj.email)
         else:
-        	pass
+            pass
         return obj, created
 
 
@@ -40,6 +42,9 @@ class BillingProfile(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     # customer id in Stripe or Braintree
     objects = BillingProfileManager()
+
+    
+
     def __str__(self):
         return self.email
 

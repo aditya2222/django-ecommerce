@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from .forms import GuestForm, RegisterForm, LoginForm
 from django.utils.http import is_safe_url
 from .models import GuestEmail
+from django.views import generic
 
 # Instance of the current user
 User = get_user_model()
@@ -11,32 +12,58 @@ User = get_user_model()
 # Create your views here.
 
 # The form below is applicable for login and register and other auth forms  also
+# Login view
+class LoginView(generic.FormView):
+    form_class = LoginForm
+    success_url = '/'
+    template_name = 'accounts/login.html'
 
-def login_view(request):
-    form = LoginForm(request.POST or None)
-    context = {"form": form}
-    next_ = request.GET.get('next')
-    next_post = request.POST.get('next')
-    redirect_path = next_ or next_post or None
-    if form.is_valid():
-        username = form.cleaned_data.get("username")
+    def form_valid(self, form):
+        request = self.request
+        next_ = request.GET.get('next')
+        next_post = request.POST.get('next')
+        redirect_path = next_ or next_post or None
+        email = form.cleaned_data.get("email")
         password = form.cleaned_data.get("password")
-        user = authenticate(request, username=username, password=password)
-
+        user = authenticate(request, username=email, password=password)
         if user is not None:
             login(request, user)
             try:
                 del request.session['guest_email_id']
             except:
                 pass
-
             if is_safe_url(redirect_path, request.get_host()):
                 return redirect(redirect_path)
             else:
                 return redirect("/")
-        else:
-            print("Error")
-    return render(request, "accounts/login.html", context)
+        return super(LoginView, self).form_invalid(form)
+
+
+# def login_view(request):
+#     form = LoginForm(request.POST or None)
+#     context = {"form": form}
+#     next_ = request.GET.get('next')
+#     next_post = request.POST.get('next')
+#     redirect_path = next_ or next_post or None
+#     if form.is_valid():
+#         username = form.cleaned_data.get("username")
+#         password = form.cleaned_data.get("password")
+#         user = authenticate(request, username=username, password=password)
+
+#         if user is not None:
+#             login(request, user)
+#             try:
+#                 del request.session['guest_email_id']
+#             except:
+#                 pass
+
+#             if is_safe_url(redirect_path, request.get_host()):
+#                 return redirect(redirect_path)
+#             else:
+#                 return redirect("/")
+#         else:
+#             print("Error")
+#     return render(request, "accounts/login.html", context)
 
 
 def guest_register_view(request):
@@ -60,10 +87,16 @@ def guest_register_view(request):
 
 # Register View
 
-def register_view(request):
-    form = RegisterForm(request.POST or None)
-    context = {"form": form}
 
-    if form.is_valid():
-        form.save()
-    return render(request, "accounts/register.html", context)
+class RegisterView(generic.CreateView):
+    form_class = RegisterForm
+    template_name = 'accounts/register.html'
+    success_url = '/accounts/login/'
+
+# def register_view(request):
+#     form = RegisterForm(request.POST or None)
+#     context = {"form": form}
+
+#     if form.is_valid():
+#         form.save()
+#     return render(request, "accounts/register.html", context)

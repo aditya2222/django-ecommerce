@@ -3,11 +3,11 @@ app_name = 'accounts'
 
 
 from django.urls import path,include
-from .views import register_view,guest_register_view,login_view
+from .views import RegisterView,guest_register_view,LoginView
 
 
 urlpatterns = [
- path('register/',register_view,name='register'),
+ path('register/',RegisterView.as_view(),name='register'),
  path('register/guest/',guest_register_view,name='guest_register'),
- path('login/',login_view,name='login'),
+ path('login/',LoginView.as_view(),name='login'),
 ]
